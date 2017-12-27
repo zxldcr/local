@@ -1,0 +1,14 @@
+﻿学会安装http-server,用于打开本地的文件
+标签的快速输入练习
+github阅览方式打开html
+原创 2017年07月06日 15:28:44 80
+第一种：http://htmlpreview.github.io/?+html所在地址（不推荐）
+第二种：在github的对应repository页面：
+1.击setting
+2.找到Github Pages
+3.把none改为master branch，保存
+4.复制此时Github Pages标题边的url
+5.在repository的README里加入下面代码：
+[demo](url+"index.html)
+保存即可
+此时点击DEMO的链接即是展示页面
