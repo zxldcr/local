@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div id="canvas"></div>
+<script type="text/javascript">
+	canvas.onkeypress = function(a){
+		var x = a.clientX
+		var y = a.clientY
+		divA = document.creatElentment('div')
+		divA.style = "width: 6px; height: 6px; background: black; border-radius: 3px;"
+		#canvas.appendChild(divA) 
+	}
+</script>
+</body>
+</html>
