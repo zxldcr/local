@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>模拟jQurey </title>
+	<!-- <script type="text/javascript" src="file:///D:/jQuery/jquery-3.3.1.js"></script> -->
+	<style type="text/css">
+		.red{color: red;}
+	</style>
+</head>
+<body>
+<!-- 模拟jQurey -->
+<ul>
+    <li id='xxx'>hrh</li>
+    <li id='xxx'>heh</li>
+    <li id='xxx'>rhes</li>
+    <li id='xxx'>ehse</li>
+</ul>
+<script type="text/javascript">
+window.jQuery= function (nodeOrSelector) {
+let nodes = {length:0}
+if(typeof (nodeOrSelector) === 'string'){
+let temp = document.querySelectorAll(nodeOrSelector)
+for(let i = 0;i < temp.length;i ++){
+  nodes[i] = temp[i]
+  nodes.length = temp.length
+}
+}
+else if(nodeOrSelector instanceof Node){
+nodes = {0: nodeOrSelector,
+         length: 1
+        }
+}
+
+var len = nodes.length
+nodes.addClass = function (classes) {
+	
+for(let i = 0;i < len;i ++){
+  var node = nodes[i]
+  for (let key in classes) {
+    if (classes[key]) {
+      node.classList.add(classes[key])
+    }
+  }
+}
+}
+nodes.setText = function(text){
+
+for(let i = 0;i <len;i ++){
+  var node = nodes[i]
+  node.textContent = text
+}
+
+}
+return nodes
+}
+var $ = jQuery('ul>li')
+$.addClass(['red'])
+$.setText('hi')
+
+</script>
+</body>
+</html>

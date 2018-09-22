@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>个人简历</title>
-    <link rel="stylesheet" href="./resume-12.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css">
+    <link rel="stylesheet" href="./resume-13.css">
     <script src="//at.alicdn.com/t/font_526994_g7rd3ixlcaxg8pvi.js"></script>
     <style type="text/css">
         .icon {
@@ -98,6 +100,7 @@
         <div class="mask"></div>
     </div>
     <main >
+    
         <div data-x id="siteAbout" class="userCard " >
            <div class="textAndPicture clearfix">
                 <div class="picture">
@@ -212,139 +215,57 @@
             </ol>
         </section>
         <section data-x id="siteWorks" class="portfolio">
-                <h2>作品集</h2>
-                <nav>
-                  <ol class="clearfix">
-                    <li id="portfolio1">所有</li>
-                    <li id="portfolio2">框架</li>
-                    <li id="portfolio3">原生JS&amp;CSS</li>
-                  </ol>
-                  <div id="portfolioBar" class="bar state-1">
-                    <div class="bar-inner"></div>
-                  </div>
-                </nav>
-                <script>
-                  portfolio1.onclick= function(){
-                    portfolioBar.className = 'bar state-1'
-                  }
-                  portfolio2.onclick= function(){
-                    portfolioBar.className = 'bar state-2'
-                  }
-                  portfolio3.onclick= function(){
-                    portfolioBar.className = 'bar state-3'
-                  }
-                </script>
-        
-                <div class="works" style="height: 597px;">
-                    <div class="big" style="top: 0; left: 0;">
-                    <img src="./img/1.jpg" alt="作品1">
-                    </div>
-                    <div class="small" style="top: 0; left: 645px;">
-                    <img src="./img/2.jpg" alt="作品2">
-                    </div>
-                    <div class="small" style="top: 312px; left: 645px;">
-                    <img src="./img/3.jpg" alt="作品3">
-                    </div>
-                </div>
-        
+            <h2>作品集</h2>
+
+        <!-- 这就是view，用户看得见的东西 -->
+        <!-- slider main container -->
+        <div id="mySlides">
+            <!-- Slider main container -->
+            <div class="swiper-container">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <img src="./img/nav-page.jpg" class="swiper-slide">
+                <img src="./img/canvas.jpg" class="swiper-slide">
+                <img src="./img/apple-style.jpg" class="swiper-slide">
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            
+            <!-- If we need scrollbar -->
+            <div class="swiper-scrollbar"></div>
+            </div>
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+            
+
+        </section>
+        <section class="message">
+            <h2 >留言</h2>
+            <ol id="messageList">
+            
+            </ol>
+            <form id="postMessageForm" style="width: 700px; margin: 50px auto;">
+                <label for="">姓名</label>
+                <input type="text" name="name">
+                <label for="">内容</label>
+                <input type="text" name="content">
+                <input type="submit" value="提交">
+            </form>
         </section>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/17.1.1/Tween.min.js"></script>
-        <script>
-            
-            // setTimeout(function(){
-            //     siteWelcome.classList.remove('active')
-            // },500)
-            let specialTags = document.querySelectorAll('[data-x]')
-                for(let i=0;i<specialTags.length;i++) {
-                    specialTags[i].classList.add('offset')
-                }  
-            setTimeout(function(){
-                yyy()
-            },1000)
-        
-            window.onscroll=function(){
-                if(window.scrollY>0){
-                    topNavBar.classList.add('sticky')
-                }else{
-                    topNavBar.classList.remove('sticky')
-                }   
-                yyy()            
-            }
-            let liTags=document.getElementsByClassName('menuTigger')
-            for(let i=0;i<liTags.length;i++){
-                liTags[i].onmouseenter=function(x){
-                    x.currentTarget.classList.add('active')
-                }
-                liTags[i].onmouseleave=function(x){
-                    x.currentTarget.classList.remove('active')
-                }
-                
-            }
-            function yyy(){
-                let specialTags = document.querySelectorAll('[data-x]')
-                var minIndex = 0
-                for(let i=1;i<specialTags.length;i++){
-                    if(Math.abs(specialTags[i].offsetTop-window.scrollY)<Math.abs(specialTags[minIndex].offsetTop-window.scrollY)){
-                        minIndex=i                    
-                    }
-                }
-                //minIndex就是离窗口最近的元素
-                          
-                specialTags[minIndex].classList.remove('offset')
-
-                for(let i=0;i<specialTags.length;i++){
-                    specialTags[i].classList.remove('active') 
-                }
-                specialTags[minIndex].classList.add('active')
-
-                let id  = specialTags[minIndex].id
-                console.log(id) //学会在关键的地方打log
-                let a = document.querySelector('a[href="#'+id+'"]')
-                let li = a.parentNode
-                let brothersAndMe = li.parentNode.children  //找爸爸的儿子 
-                for(let i=0;i<brothersAndMe.length;i++) {
-                    brothersAndMe[i].classList.remove('highlight')
-                }           
-                li.classList.add('highlight')
-
-            }
-            let aTags=document.querySelectorAll('nav>ul>li>a')
-
-            function animate(time) {
-            requestAnimationFrame(animate);
-            TWEEN.update(time);
-            }
-            requestAnimationFrame(animate);
-
-            
-
-            for(let i=0;i<aTags.length;i++){
-                aTags[i].onclick=function(x){
-                    x.preventDefault()
-                    let a = x.currentTarget
-                    let href=a.getAttribute('href')//'#siteAbout'
-                    let element=document.querySelector(href)
-                    let top=element.offsetTop
-
-                    
-                    let currentTop = window.scrollY
-                    let targetTop =top - 80
-                    let s = targetTop - currentTop
-                    let t= Math.abs((s/100)*200)  //求绝对值
-                    if(t>1000){t = 1000} //如果动画时间大于1s,则就给赋值一秒
-                    /*****设置动画速度曲线****/
-                    var coords = { y: currentTop}; // Start at (0, 0)
-                    var tween = new TWEEN.Tween(coords) // Create a new tween that modifies 'coords'.
-                    .to({ y: targetTop}, t) // Move to (300, 200) in 1 second.
-                    .easing(TWEEN.Easing.Quadratic.InOut) // Use an easing function to make the animation smooth.
-                    .onUpdate(function() { // Called after tween.js updates 'coords'.
-                    // Move 'box' to the position described by 'coords' with a CSS translation.
-                    window.scrollTo(0,coords.y)
-                    })
-                    .start(); // Start the tween immediately.
-                }
-            }
-        </script>      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
+        <!-- 模块化 -->
+        <script src="./init-swiper.js"></script>
+        <script src="./auto-slide-up.js"></script>
+        <script src="./sticky.js"></script>
+        <script src="./smoothly-navigation.js"></script>
+        <script src="./message.js"></script>
+    
          
 </body>
 </html>
