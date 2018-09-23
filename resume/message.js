@@ -1,158 +1,85 @@
+// 
 !function(){
-    var model = {
-      // 获取数据
-      init: function(){
-        var APP_ID = '2TlHlWmdGftbFEM2U1PQ6aXh-gzGzoHsz'
-        var APP_KEY = '2FDDuoGatDjieRTNhbAOriS3'
-        AV.init({ appId: APP_ID, appKey: APP_KEY })
-      },
-      fetch: function(){ 
-        var query = new AV.Query('Message');
-        return query.find() // Promise 对象
-      },
-      // 创建数据
-      save: function(name, content){
-        var Message = AV.Object.extend('Message');
-        var message = new Message();
-        return message.save({  // Promise 对象
-          'name': name,
-          'content': content
-        })
-      }
-    }
-  
     var view = document.querySelector('section.message')
-  
-  
-    var controller = {
-      view: null,
-      model: null,
-      messageList: null,
-      init: function(view, model){
-        this.view = view
-        this.model = model
-  
-        this.messageList = view.querySelector('#messageList')
-        this.form = view.querySelector('form')
-        this.model.init()
-        this.loadMessages()
-        this.bindEvents()
-        
-      },
-      loadMessages: function(){
-        this.model.fetch().then(
-          (messages) => {
-            let array = messages.map((item)=> item.attributes )
-            array.forEach((item)=>{
-              let li = document.createElement('li')
-              li.innerText = `${item.name}: ${item.content}`
-              this.messageList.appendChild(li)
+
+    var model = {
+        init: function(){
+            var APP_ID = '2TlHlWmdGftbFEM2U1PQ6aXh-gzGzoHsz';
+            var APP_KEY = '2FDDuoGatDjieRTNhbAOriS3';
+
+            AV.init({appId: APP_ID,appKey: APP_KEY})
+        },
+        //获取数据
+        fetch: function(){
+            var query = new AV.Query('Message')
+            return query.find()     //Promise对象
+              
+        },
+        //创建数据
+        save: function(name,content){
+            var Message = AV.Object.extend('Message')
+            var message = new Message()
+            return message.save({    //Promise对象
+                'name': name,
+                'content': content
             })
-          } 
-        )
-      },
-      bindEvents: function(){
-        this.form.addEventListener('submit', function(e){
-          e.preventDefault()
-          this.saveMessage()
-        })
-      },
-      saveMessage: function(){
-          console.log(123)
-        let myForm = this.form
-        let content = myForm.querySelector('input[name=content]').value
-        let name = myForm.querySelector('input[name=name]').value
-        this.model.save(name, content).then(function(object) {
-          let li = document.createElement('li')
-          li.innerText = `${object.attributes.name}: ${object.attributes.content}`
-          let messageList = document.querySelector('#messageList')
-          messageList.appendChild(li)
-          myForm.querySelector('input[name=content]').value = ''
-          console.log(object)
-        })
-      }
-  
+        }
     }
-  
-    controller.init(view, model)
-  
-  
-  }.call()
-     
 
+    var controller = {
+        view: null,
+        model: null,
+        messageList: null,
+        init: function(view,model){
+            this.view = view
+            this.model = model
+            this.messageList = view.querySelector('#messageList')
+            this.form = view.querySelector('#postMessageForm')
+            this.model.init()
+            this.loadMessages()
+            this.bindEvents()
+        },
+        
+        loadMessages: function(){
+           this.model.fetch()
+            .then((messages)=> {
+                let array = messages.map((item)=>item.attributes)
+                array.forEach((item) => {
+                    let li = document.createElement('li')
+                    li.innerText = `${item.name}: ${item.content}`
+                    this.messageList.appendChild(li)
+                });
+                // 成功获得实例
+            }//, function (error) {
+                //alert('提交失败，改天再来哦V_V')}// 异常处理
+            )//.then(()=>{},(error)=>{console.log(error)})
 
-    
-// !function(){
-//     var view = document.querySelector('section.message')
-
-//     var controller = {
-//         view: null,
-//         init: function(view){
-//             this.view = view
-//             this.messageList = view.querySelector('#messageList')
-//             this.form = view.querySelector('form')
-//             this.initAv()
-//             this.loadMessages()
-//             this.bindEvents()
-//         },
-//         initAV: function(){
-//             var APP_ID = '2TlHlWmdGftbFEM2U1PQ6aXh-gzGzoHsz';
-//             var APP_KEY = '2FDDuoGatDjieRTNhbAOriS3';
+        },
+        bindEvents: function(){
+            this.form.addEventListener('submit',(e)=>{     //‘submit’包含提交按钮被点击、任意一行input打回车两个事件
+                e.preventDefault()
+                this.saveMessages()
+            }) 
+        },
+        saveMessages: function(){
+            let myForm = this.form
+            let content = myForm.querySelector('input[name=content]').value
+            let name = myForm.querySelector('input[name=name]').value
             
-//             AV.init({
-//               appId: APP_ID,
-//               appKey: APP_KEY
-//             });
-//         },
-//         loadMessages: function(){
-//             var query = new AV.Query('Message');
-//             query.find()
-//                 .then(
-//                     (message) => {
-//                         console.log(messages) 
-//                         let array = messages.map((item) => item.attributes)
-//                         array.forEach((item) => {               
-//                         let li = document.createElement('li')
-//                         li.innerText = `${item.name}:${item.content}`
-                        
-                        
-//                         this.messageList.appendChild(li)
-//                         })          
-//                     },
-//                      function (error) {
-//                          alert('提交失败，请改天留言')
-//                     // 异常处理
-//                     }
-//                 )
-//         },
-//         bindEvents: function(){
-            
-            
-//             this.form.addEventListener('submit',function(e){
-//                 e.preventDefault()
-//                 this.saveMessage()
-                                 
-//             })
-//         },
-//         saveMessage: function(){
-//             let myForm = this.form
-//             let content = myForm.querySelector('input[name=content]').value
-//             let name = myForm.querySelector('input[name=name]').value
-//             var Message = AV.Object.extend('Message') //这两个Message没有关系，第一个变量名随便起个名字就可以，第二个Message是数据库中表单的名字
-//             var message = new Message()
-//             message.save({
-//                 'name': name,
-//                 'content': content
-//               }).then(function(object) {
-//                 let li = document.createElement('li')
-//                 li.innerText = `${object.attributes.name}:${object.attributes.content}`                
-//                 let messageList = document.querySelector('#messageList')
-//                 messageList.appendChild(li)
-//                 myForm.querySelector('input[name=content]').value=''
-//                 console.log(object)
-//               })
-//         }
-//     }
+            this.model.save(name,content)
+             .then(function(object) {
+                let li = document.createElement('li')
+                li.innerText = `${object.attributes.name}: ${object.attributes.content}`
+                messageList.appendChild(li)
+                view.querySelector('input[name=content]').value = ''
+                /*window.location.reload()  //成功提交后自动帮用户刷新页面，但用户体验极差*/
+                //console.log(object);
+            })
+        } 
+    }
+    controller.init(view,model)
 
-//      controller.init(view)
-// }.call()
+}.call()
+
+
+
